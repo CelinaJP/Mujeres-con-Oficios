@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { TabType } from '../types';
-import { ClipboardList, BookOpen, Users, Bell, CloudCheck } from 'lucide-react';
+import { ClipboardList, BookOpen, Users, Bell } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
