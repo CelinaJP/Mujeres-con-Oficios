@@ -1,20 +1,35 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
 
-# Run and deploy your AI Studio app
+# 🛠️ Mujeres con Oficios - Plataforma de Gestión
 
-This contains everything you need to run your app locally.
+Plataforma móvil-first diseñada para la comunidad de mujeres en oficios (electricistas, plomeras, albañilas, etc.). Permite la gestión de relevamientos técnicos, acceso a capacitaciones (LMS) y conexión entre profesionales.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1kw0pU1wvyq1A3Za9o95-PKKPzHQPItDr
+## 🚀 Características Principales
 
-## Run Locally
+- **Ficha Técnica de Obra**: Registro de datos de clientas, geolocalización de servicios, notas de voz y registro fotográfico.
+- **Academia MO (LMS)**: Sistema de aprendizaje con seguimiento de progreso, videos y material descargable.
+- **Directorio de Profesionales**: Buscador con filtros por zona y especialidad, con integración directa a WhatsApp.
+- **Interfaz Mobile-First**: Optimizada para uso en obra con Tailwind CSS y Lucide Icons.
 
-**Prerequisites:**  Node.js
+## 📦 Instalación Local
 
+Este proyecto utiliza un sistema de módulos ES modernos. Para ejecutarlo localmente:
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/usuario/mujeres-con-oficios.git
+   ```
+2. Si usas un servidor local (como Live Server o Vite):
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+## 🛠️ Tecnologías
+
+- **React 19**
+- **Tailwind CSS** (Estilizado)
+- **Lucide React** (Iconografía)
+- **TypeScript** (Tipado estricto)
+
+## 🤝 Contribuciones
+Este es un proyecto comunitario. ¡Toda ayuda es bienvenida!
