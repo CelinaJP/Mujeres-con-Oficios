@@ -45,13 +45,13 @@ const SurveyView: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    const data = { 
-      clientName, 
-      serviceType, 
-      address, 
-      notes, 
-      materials, 
-      photos 
+    const data = {
+      clientName,
+      serviceType,
+      address,
+      notes,
+      materials,
+      photos
     };
     console.log('Datos de Relevamiento Enviados:', data);
     setIsSuccess(true);
@@ -84,17 +84,17 @@ const SurveyView: React.FC = () => {
       )}
 
       {/* SECCIÓN: Datos del Lugar */}
-      <section className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-        <label className="block text-sm font-bold text-slate-700 mb-1 flex items-center gap-2">
-          <MapPin size={18} className="text-violet-600" />
+      <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+        <label className="title-color block text-sm font-bold text-slate-700 mb-1 flex items-center gap-2">
+          <MapPin size={18} className="text-red-600" />
           Datos del Lugar
         </label>
-        
+
         <div className="space-y-3">
           {/* Nombre de la Clienta */}
           <div className="relative">
             <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-            <input 
+            <input
               type="text"
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
@@ -106,7 +106,7 @@ const SurveyView: React.FC = () => {
           {/* Servicio Requerido */}
           <div className="relative">
             <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-            <select 
+            <select
               value={serviceType}
               onChange={(e) => setServiceType(e.target.value)}
               className="w-full p-3 pl-10 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 text-sm appearance-none text-slate-700"
@@ -118,14 +118,14 @@ const SurveyView: React.FC = () => {
 
           {/* Domicilio - Grid */}
           <div className="grid grid-cols-4 gap-2">
-            <input 
+            <input
               type="text"
               placeholder="Calle"
               value={address.street}
               onChange={(e) => setAddress({...address, street: e.target.value})}
               className="col-span-3 p-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 text-sm"
             />
-            <input 
+            <input
               type="text"
               placeholder="N°"
               value={address.number}
@@ -133,14 +133,14 @@ const SurveyView: React.FC = () => {
               className="col-span-1 p-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 text-sm"
             />
           </div>
-          <input 
+          <input
             type="text"
             placeholder="Entre calles"
             value={address.betweenStreets}
             onChange={(e) => setAddress({...address, betweenStreets: e.target.value})}
             className="w-full p-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 text-sm"
           />
-          <input 
+          <input
             type="text"
             placeholder="Localidad"
             value={address.locality}
@@ -151,17 +151,17 @@ const SurveyView: React.FC = () => {
       </section>
 
       {/* Media Section */}
-      <section className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-        <label className="block text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
-          <Camera size={18} className="text-violet-600" />
+      <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+        <label className="title-color block text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
+          <Camera size={18} className="text-red-600" />
           Registro Visual
         </label>
-        
+
         <div className="grid grid-cols-3 gap-3 mb-4">
           {photos.map((src, idx) => (
             <div key={idx} className="relative aspect-square rounded-xl overflow-hidden border border-slate-200">
               <img src={src} alt={`Obra ${idx}`} className="w-full h-full object-cover" />
-              <button 
+              <button
                 onClick={() => setPhotos(photos.filter((_, i) => i !== idx))}
                 className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full"
               >
@@ -169,36 +169,36 @@ const SurveyView: React.FC = () => {
               </button>
             </div>
           ))}
-          <button 
+          <button
             onClick={() => fileInputRef.current?.click()}
             className="aspect-square rounded-xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors"
           >
             <Plus size={24} />
             <span className="text-[10px] font-bold mt-1 uppercase">Agregar</span>
           </button>
-          <input 
-            type="file" 
-            ref={fileInputRef} 
-            onChange={handlePhotoUpload} 
-            multiple 
-            accept="image/*" 
-            className="hidden" 
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handlePhotoUpload}
+            multiple
+            accept="image/*"
+            className="hidden"
           />
         </div>
       </section>
 
       {/* Notes Section */}
-      <section className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-        <label className="block text-sm font-bold text-slate-700 mb-3 flex justify-between items-center">
+      <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+        <label className="title-color block text-sm font-bold text-slate-700 mb-3 flex justify-between items-center">
           <div className="flex items-center gap-2">
-             <FileText size={18} className="text-violet-600" />
+             <FileText size={18} className="text-red-600" />
              Observaciones y Notas
           </div>
-          <button className="text-violet-600 p-2 bg-violet-50 rounded-full active:scale-95 transition-transform">
+          <button className="text-red-600 p-2 bg-red-50 rounded-full active:scale-95 transition-transform">
             <Mic size={18} />
           </button>
         </label>
-        <textarea 
+        <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder="Describe el estado de la instalación, tareas a realizar..."
@@ -207,10 +207,10 @@ const SurveyView: React.FC = () => {
       </section>
 
       {/* Materials Section */}
-      <section className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-        <label className="block text-sm font-bold text-slate-700 mb-3">Lista de Materiales</label>
+      <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+        <label className="title-color block text-sm font-bold text-slate-700 mb-3">Lista de Materiales</label>
         <div className="relative mb-3">
-          <input 
+          <input
             type="text"
             value={materialInput}
             onChange={(e) => setMaterialInput(e.target.value)}
@@ -218,19 +218,19 @@ const SurveyView: React.FC = () => {
             placeholder="Escribí un material y presioná Enter"
             className="w-full p-4 pr-12 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 placeholder:text-slate-400 text-slate-700"
           />
-          <button 
+          <button
             onClick={() => {
               if (materialInput.trim()) {
                 setMaterials([...materials, materialInput.trim()]);
                 setMaterialInput('');
               }
             }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-violet-600 text-white p-2 rounded-lg"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-red-600 text-white p-2 rounded-lg"
           >
             <Plus size={18} />
           </button>
         </div>
-        
+
         <div className="flex flex-wrap gap-2">
           {materials.map((m, idx) => (
             <div key={idx} className="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 border border-slate-200">
@@ -246,16 +246,16 @@ const SurveyView: React.FC = () => {
 
       {/* Actions */}
       <div className="grid grid-cols-2 gap-4">
-        <button 
+        <button
           onClick={() => setShowMatchModal(true)}
-          className="flex items-center justify-center gap-2 p-4 bg-white border-2 border-violet-600 text-violet-600 rounded-xl font-bold active:bg-violet-50 transition-colors shadow-sm"
+          className="flex items-center justify-center gap-2 p-4 bg-white border-2 border-red-600 text-red-600 rounded-xl font-bold active:bg-violet-50 transition-colors shadow-sm"
         >
           <UserPlus size={20} />
           Match Profesional
         </button>
-        <button 
+        <button
           onClick={handleSubmit}
-          className="p-4 bg-violet-600 text-white rounded-xl font-bold shadow-lg shadow-violet-200 active:bg-violet-700 transition-colors"
+          className="p-4 bg-red-600 text-white rounded-xl font-bold shadow-lg shadow-violet-200 active:bg-red-700 transition-colors"
         >
           Guardar Ficha
         </button>
@@ -278,7 +278,7 @@ const SurveyView: React.FC = () => {
                       <p className="text-xs text-slate-500">{pro.specialty}</p>
                     </div>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setShowMatchModal(false)}
                     className="p-2 bg-violet-50 text-violet-600 rounded-lg text-xs font-bold uppercase tracking-wider"
                   >
@@ -287,7 +287,7 @@ const SurveyView: React.FC = () => {
                 </div>
               ))}
             </div>
-            <button 
+            <button
               onClick={() => setShowMatchModal(false)}
               className="w-full mt-6 p-4 bg-slate-100 text-slate-600 rounded-xl font-bold"
             >
