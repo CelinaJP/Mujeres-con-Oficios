@@ -1,0 +1,8 @@
+{
+  "name": "Mujeres con Oficios - Platform",
+  "description": "A mobile-first platform for women in trades to manage field reports, access training (LMS), and connect with professionals.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
