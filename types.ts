@@ -26,6 +26,14 @@ export interface Course {
 }
 
 export interface SurveyForm {
+  clientName: string;
+  serviceType: string;
+  address: {
+    street: string;
+    number: string;
+    betweenStreets: string;
+    locality: string;
+  };
   notes: string;
   materials: string[];
   photos: string[];

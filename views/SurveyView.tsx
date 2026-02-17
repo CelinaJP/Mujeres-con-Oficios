@@ -1,10 +1,21 @@
 
 import React, { useState, useRef } from 'react';
-import { Camera, Mic, Plus, X, UserPlus, FileText, CheckCircle2 } from 'lucide-react';
+import { Camera, Mic, Plus, X, UserPlus, FileText, CheckCircle2, User, MapPin, Briefcase } from 'lucide-react';
 import { mockProfessionals } from '../mockData';
 import { Professional } from '../types';
 
 const SurveyView: React.FC = () => {
+  // Estados para "Datos del lugar"
+  const [clientName, setClientName] = useState('');
+  const [serviceType, setServiceType] = useState('');
+  const [address, setAddress] = useState({
+    street: '',
+    number: '',
+    betweenStreets: '',
+    locality: ''
+  });
+
+  // Estados originales
   const [notes, setNotes] = useState('');
   const [materials, setMaterials] = useState<string[]>([]);
   const [materialInput, setMaterialInput] = useState('');
@@ -28,18 +39,35 @@ const SurveyView: React.FC = () => {
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-      // Added explicit File type to fix the 'unknown' argument error for URL.createObjectURL
       const newPhotos = Array.from(files).map((file: File) => URL.createObjectURL(file));
       setPhotos([...photos, ...newPhotos]);
     }
   };
 
   const handleSubmit = () => {
-    const data = { notes, materials, photos };
+    const data = { 
+      clientName, 
+      serviceType, 
+      address, 
+      notes, 
+      materials, 
+      photos 
+    };
     console.log('Datos de Relevamiento Enviados:', data);
     setIsSuccess(true);
     setTimeout(() => setIsSuccess(false), 3000);
   };
+
+  const services = [
+    'Albañilería',
+    'Plomería',
+    'Electricidad',
+    'Pintura',
+    'Carpintería',
+    'Gasista',
+    'Durlock / Tabiquería',
+    'Climatización'
+  ];
 
   return (
     <div className="space-y-6">
@@ -54,6 +82,73 @@ const SurveyView: React.FC = () => {
           <span className="font-medium">¡Relevamiento guardado con éxito!</span>
         </div>
       )}
+
+      {/* SECCIÓN: Datos del Lugar */}
+      <section className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+        <label className="block text-sm font-bold text-slate-700 mb-1 flex items-center gap-2">
+          <MapPin size={18} className="text-violet-600" />
+          Datos del Lugar
+        </label>
+        
+        <div className="space-y-3">
+          {/* Nombre de la Clienta */}
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+            <input 
+              type="text"
+              value={clientName}
+              onChange={(e) => setClientName(e.target.value)}
+              placeholder="Nombre de la clienta"
+              className="w-full p-3 pl-10 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 text-sm"
+            />
+          </div>
+
+          {/* Servicio Requerido */}
+          <div className="relative">
+            <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+            <select 
+              value={serviceType}
+              onChange={(e) => setServiceType(e.target.value)}
+              className="w-full p-3 pl-10 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 text-sm appearance-none text-slate-700"
+            >
+              <option value="" disabled>Servicio que requiere la clienta</option>
+              {services.map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+
+          {/* Domicilio - Grid */}
+          <div className="grid grid-cols-4 gap-2">
+            <input 
+              type="text"
+              placeholder="Calle"
+              value={address.street}
+              onChange={(e) => setAddress({...address, street: e.target.value})}
+              className="col-span-3 p-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 text-sm"
+            />
+            <input 
+              type="text"
+              placeholder="N°"
+              value={address.number}
+              onChange={(e) => setAddress({...address, number: e.target.value})}
+              className="col-span-1 p-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 text-sm"
+            />
+          </div>
+          <input 
+            type="text"
+            placeholder="Entre calles"
+            value={address.betweenStreets}
+            onChange={(e) => setAddress({...address, betweenStreets: e.target.value})}
+            className="w-full p-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 text-sm"
+          />
+          <input 
+            type="text"
+            placeholder="Localidad"
+            value={address.locality}
+            onChange={(e) => setAddress({...address, locality: e.target.value})}
+            className="w-full p-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 text-sm"
+          />
+        </div>
+      </section>
 
       {/* Media Section */}
       <section className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
