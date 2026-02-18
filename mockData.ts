@@ -7,16 +7,16 @@ export const mockProfessionals: Professional[] = [
     name: 'Marta García',
     specialty: 'Instalaciones Eléctricas / Trifásica',
     zone: 'CABA',
-    // Mujer electricista, avatar profesional
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&q=80',
+    // Mujer electricista trabajando con cables en escalera
+    avatar: 'https://images.pexels.com/photos/8486932/pexels-photo-8486932.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
     coursesCompleted: ['Normativa AEA', 'Energías Renovables'],
     portfolio: [
-      // tablero eléctrico
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&q=80',
-      // instalación de luminarias
-      'https://images.unsplash.com/photo-1565814636199-ae8133055c1c?w=600&h=400&fit=crop&q=80',
-      // cables y cableado profesional
-      'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=400&fit=crop&q=80',
+      // Mujer electricista parada en escalera sosteniendo cables
+      'https://images.pexels.com/photos/20500461/pexels-photo-20500461.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      // Mujer electricista perforando pared con taladro y casco
+      'https://images.pexels.com/photos/8486929/pexels-photo-8486929.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      // Mujer soldando con gafas protectoras
+      'https://images.pexels.com/photos/9241771/pexels-photo-9241771.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
     ],
     whatsapp: '5491100000001',
     bio: 'Electricista matriculada con 8 años de experiencia en instalaciones residenciales y comerciales. Especialista en sistemas trifásicos y normativa AEA.',
@@ -35,16 +35,16 @@ export const mockProfessionals: Professional[] = [
     name: 'Lucía Domínguez',
     specialty: 'Domótica y Automatización',
     zone: 'Norte',
-    // Mujer técnica en tecnología
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&q=80',
+    // Mujer técnica en tecnología e ingeniería
+    avatar: 'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
     coursesCompleted: ['Smart Home v2', 'Seguridad Electrónica'],
     portfolio: [
-      // panel de control smart home
-      'https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=400&fit=crop&q=80',
-      // cámara de seguridad CCTV
-      'https://images.unsplash.com/photo-1580595333398-5f38ee80a898?w=600&h=400&fit=crop&q=80',
-      // dispositivos IoT / hub de automatización
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop&q=80',
+      // Mujer ingeniera con casco amarillo en entorno industrial
+      'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      // Mujer técnica inspeccionando paneles solares con PPE
+      'https://images.pexels.com/photos/4254163/pexels-photo-4254163.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      // Cámara de seguridad smart home (neutral)
+      'https://images.pexels.com/photos/26597080/pexels-photo-26597080.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
     ],
     whatsapp: '5491100000002',
     bio: 'Técnica especializada en domótica residencial e industrial. Integro sistemas KNX, Z-Wave y asistentes de voz. Certificada por LARES Argentina.',
@@ -62,16 +62,16 @@ export const mockProfessionals: Professional[] = [
     name: 'Elena Rodríguez',
     specialty: 'Certificaciones e Inspección',
     zone: 'Sur',
-    // Mujer profesional en inspección
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&q=80',
+    // Ingeniera inspectora con casco y clipboard en obra
+    avatar: 'https://images.pexels.com/photos/3862371/pexels-photo-3862371.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
     coursesCompleted: ['Protocolo puesta a tierra', 'Habilitaciones Municipales'],
     portfolio: [
-      // inspección técnica / documentación
-      'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop&q=80',
-      // medición y puesta a tierra
-      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop&q=80',
-      // auditoría eléctrica en obra
-      'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&h=400&fit=crop&q=80',
+      // Mujer ingeniera con casco y portapapeles inspeccionando obra
+      'https://images.pexels.com/photos/7937365/pexels-photo-7937365.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      // Mujer revisando notas en obra con casco
+      'https://images.pexels.com/photos/7937676/pexels-photo-7937676.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      // Mujer ingeniera en taller industrial con sonrisa
+      'https://images.pexels.com/photos/3862614/pexels-photo-3862614.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
     ],
     whatsapp: '5491100000003',
     bio: 'Inspectora técnica y certificadora con amplia experiencia en habilitaciones municipales y auditorías eléctricas para locales comerciales.',
@@ -89,16 +89,16 @@ export const mockProfessionals: Professional[] = [
     name: 'Valeria Méndez',
     specialty: 'Plomería y Gas',
     zone: 'Oeste',
-    // Mujer plomera / técnica
-    avatar: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&q=80',
+    // Mujer plomera sosteniendo llave inglesa con PPE
+    avatar: 'https://images.pexels.com/photos/8486972/pexels-photo-8486972.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
     coursesCompleted: ['Gasista matriculada', 'Instalaciones Sanitarias'],
     portfolio: [
-      // instalación de cañerías / sanitarios
-      'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=400&fit=crop&q=80',
-      // válvulas y conexiones de gas
-      'https://images.unsplash.com/photo-1504417697388-aa38e15e2b24?w=600&h=400&fit=crop&q=80',
-      // baño moderno terminado
-      'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&h=400&fit=crop&q=80',
+      // Mujer plomera caucásica con llave de plomero y PPE
+      'https://images.pexels.com/photos/8486928/pexels-photo-8486928.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      // Mujer plomera con equipo de seguridad y llave
+      'https://images.pexels.com/photos/8486923/pexels-photo-8486923.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      // Mujer plomera profesional con chaleco naranja sosteniendo llave
+      'https://images.pexels.com/photos/8486975/pexels-photo-8486975.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
     ],
     whatsapp: '5491100000004',
     bio: 'Gasista matriculada y plomera con más de 10 años de trayectoria. Especialista en instalaciones sanitarias y reparaciones de urgencia.',
@@ -116,16 +116,16 @@ export const mockProfessionals: Professional[] = [
     name: 'Sofía Castillo',
     specialty: 'Pintura y Revestimientos',
     zone: 'CABA',
-    // Mujer pintora / decoradora
-    avatar: 'https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?w=200&h=200&fit=crop&q=80',
+    // Mujer pintora adulta con rodillo de pintura
+    avatar: 'https://images.pexels.com/photos/8481711/pexels-photo-8481711.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
     coursesCompleted: ['Técnicas Decorativas', 'Microcemento'],
     portfolio: [
-      // pared con microcemento / textura decorativa
-      'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600&h=400&fit=crop&q=80',
-      // pintura de interiores con rodillo
-      'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600&h=400&fit=crop&q=80',
-      // revestimiento decorativo terminado
-      'https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=600&h=400&fit=crop&q=80',
+      // Mujer pintando pared gris con rodillo en obra de renovación
+      'https://images.pexels.com/photos/6764265/pexels-photo-6764265.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      // Mujer joven pintando pared gris sonriendo DIY
+      'https://images.pexels.com/photos/6764262/pexels-photo-6764262.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      // Mujer pintando con rodillo gris en interior, renovación
+      'https://images.pexels.com/photos/6764270/pexels-photo-6764270.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
     ],
     whatsapp: '5491100000005',
     bio: 'Pintora profesional y decoradora de interiores. Especializada en microcemento, pintura texturada y revestimientos decorativos de alta gama.',
