@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
   return (
     <Layout activeTab={activeTab} onTabChange={setActiveTab}>
-      <div className="pb-24 max-w-2xl mx-auto min-h-screen">
+      <div className="mx-auto">
         {renderContent()}
       </div>
     </Layout>

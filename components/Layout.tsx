@@ -11,9 +11,9 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange }) => {
   return (
-    <div className="relative min-h-screen">
+    <div className="layout-color relative min-h-screen">
       {/* Header */}
-      <header className="header-color sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex justify-between items-center">
+      <header className="bg-red-plus sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-200">
              <span className="text-white font-bold text-sm">MO</span>
@@ -38,7 +38,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange }) => 
       </header>
 
       {/* Main Content */}
-      <main className="main-color px-4 py-6">
+      <main className="px-4 py-6">
         {children}
       </main>
 
