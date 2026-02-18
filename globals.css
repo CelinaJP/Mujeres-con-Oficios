@@ -2,12 +2,12 @@
     background-color: rgb(254, 248, 240);
 }
 
-.section-color {
+.bg-blue-plus {
     background-color: rgb(54, 113, 201);
 }
 
-.bg.blue-plus {
-    background-color: rgb(54, 113, 201);
+.text-blue-plus {
+    color: rgb(54, 113, 201);
 }
 
 .title-color {

@@ -86,7 +86,7 @@ const SurveyView: React.FC = () => {
       <div className="layout-survey">
         <div className="col-span-1">
           {/* SECCIÓN: Datos del Lugar */}
-      <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+      <section className="bg-blue-plus p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
         <label className="title-color block text-sm font-bold text-slate-700 mb-1 flex items-center gap-2">
           <MapPin size={18} className="text-red-600" />
           Datos del Lugar
@@ -154,7 +154,7 @@ const SurveyView: React.FC = () => {
         </div>
         <div className="col-span-1">
           {/* Media Section */}
-      <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+      <section className="bg-blue-plus p-5 rounded-2xl shadow-sm border border-slate-100">
         <label className="title-color block text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
           <Camera size={18} className="text-red-600" />
           Registro Visual
@@ -192,7 +192,7 @@ const SurveyView: React.FC = () => {
         </div>
         <div className="col-span-1">
           {/* Notes Section */}
-      <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+      <section className="bg-blue-plus p-5 rounded-2xl shadow-sm border border-slate-100">
         <label className="title-color block text-sm font-bold text-slate-700 mb-3 flex justify-between items-center">
           <div className="flex items-center gap-2">
              <FileText size={18} className="text-red-600" />
@@ -213,7 +213,7 @@ const SurveyView: React.FC = () => {
       </div>
 
       {/* Materials Section */}
-      <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+      <section className="bg-blue-plus p-5 rounded-2xl shadow-sm border border-slate-100">
         <label className="title-color block text-sm font-bold text-slate-700 mb-3">Lista de Materiales</label>
         <div className="relative mb-3">
           <input
