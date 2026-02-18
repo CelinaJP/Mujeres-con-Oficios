@@ -1,5 +1,5 @@
 
-import { Professional, Course, ServiceRequest, DashboardStats } from './types';
+import { Professional, Course, ServiceRequest, DashboardStats, AppNotification } from './types';
 
 export const mockProfessionals: Professional[] = [
   {
@@ -228,4 +228,57 @@ export const mockCourses: Course[] = [
       { name: 'Manual de EPP.pdf', url: '#' }
     ]
   }
+];
+
+// ─── Mock Notifications ───────────────────────────────────────────────────────
+export const mockNotifications: AppNotification[] = [
+  {
+    id: 'n1',
+    type: 'new_request',
+    title: 'Nueva solicitud recibida',
+    body: 'Ana González solicitó un servicio de Electricidad en CABA.',
+    timestamp: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
+    read: false,
+    targetTab: 'matching' as any,
+    relatedId: 'sr1',
+  },
+  {
+    id: 'n2',
+    type: 'available_pro',
+    title: 'Profesional disponible',
+    body: 'Marta García está disponible y lista para aceptar trabajos.',
+    timestamp: new Date(Date.now() - 32 * 60 * 1000).toISOString(),
+    read: false,
+    targetTab: 'directory' as any,
+    relatedId: '1',
+  },
+  {
+    id: 'n3',
+    type: 'status_change',
+    title: 'Trabajo completado',
+    body: 'El servicio de Plomería de Fernanda Díaz fue marcado como completado.',
+    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+    read: false,
+    targetTab: 'matching' as any,
+    relatedId: 'sr3',
+  },
+  {
+    id: 'n4',
+    type: 'assignment',
+    title: 'Asignación confirmada',
+    body: 'Lucía Domínguez fue asignada al trabajo de Domótica de Patricia Salas.',
+    timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
+    read: true,
+    targetTab: 'matching' as any,
+    relatedId: 'sr2',
+  },
+  {
+    id: 'n5',
+    type: 'reminder',
+    title: 'Recordatorio pendiente',
+    body: 'Tenés 2 solicitudes sin asignar que requieren atención.',
+    timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    read: true,
+    targetTab: 'matching' as any,
+  },
 ];

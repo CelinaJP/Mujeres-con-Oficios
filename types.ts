@@ -81,3 +81,24 @@ export interface DashboardStats {
   completedThisMonth: number;
   zones: { name: string; count: number }[];
 }
+
+// ─── Notifications ────────────────────────────────────────────────────────────
+export type NotificationType =
+  | 'new_request'
+  | 'assignment'
+  | 'status_change'
+  | 'available_pro'
+  | 'reminder';
+
+export interface AppNotification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  body: string;
+  timestamp: string;       // ISO string
+  read: boolean;
+  /** Tab to navigate to when tapped */
+  targetTab?: TabType;
+  /** ID del recurso relacionado (ServiceRequest, Professional…) */
+  relatedId?: string;
+}
