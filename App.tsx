@@ -5,20 +5,26 @@ import Layout from './components/Layout';
 import SurveyView from './views/SurveyView';
 import DirectoryView from './views/DirectoryView';
 import AcademyView from './views/AcademyView';
+import DashboardView from './views/DashboardView';
+import MatchingView from './views/MatchingView';
 
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabType>(TabType.SURVEY);
+  const [activeTab, setActiveTab] = useState<TabType>(TabType.DASHBOARD);
 
   const renderContent = () => {
     switch (activeTab) {
+      case TabType.DASHBOARD:
+        return <DashboardView onNavigate={setActiveTab} />;
       case TabType.SURVEY:
         return <SurveyView />;
       case TabType.DIRECTORY:
         return <DirectoryView />;
+      case TabType.MATCHING:
+        return <MatchingView />;
       case TabType.ACADEMY:
         return <AcademyView />;
       default:
-        return <SurveyView />;
+        return <DashboardView onNavigate={setActiveTab} />;
     }
   };
 

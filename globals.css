@@ -1,23 +1,18 @@
+/* ─── Base Layout ────────────────────────────────────────────────────────── */
 .layout-color {
-    background-color: rgb(254, 248, 240);
+  background-color: #f6f4f8;
+  background-image:
+    radial-gradient(ellipse at 0% 0%, rgba(139,92,246,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 100%, rgba(59,130,246,0.05) 0%, transparent 60%);
 }
 
-.bg-blue-plus {
-    background-color: rgb(54, 113, 201);
-}
+/* ─── Legacy tokens (SurveyView) ────────────────────────────────────────── */
+.bg-blue-plus   { background-color: rgb(54, 113, 201); }
+.text-blue-plus { color: rgb(54, 113, 201); }
+.title-color    { color: rgb(255, 255, 255); }
+.bg-red-plus    { background-color: rgb(187, 37, 37); }
 
-.text-blue-plus {
-    color: rgb(54, 113, 201);
-}
-
-.title-color {
-    color: rgb(255, 255, 255);
-}
-
-.bg-red-plus{
-    background-color: rgb(187, 37, 37);
-}
-
+/* ─── Survey grid layout ────────────────────────────────────────────────── */
 .layout-survey {
   width: 100%;
   display: grid;
@@ -25,13 +20,11 @@
   gap: 24px;
   align-items: stretch;
 }
+.layout-survey > div { display: flex; }
+.layout-survey > div > section { flex: 1; }
 
-.layout-survey > div {
-  display: flex;
-}
-
-.layout-survey > div > section {
-  flex: 1;
+@media (max-width: 768px) {
+  .layout-survey { grid-template-columns: 1fr; }
 }
 
 .btn-view-1 {
@@ -40,8 +33,31 @@
   border-color: rgb(187, 37, 37);
   color: rgb(187, 37, 37);
 }
+.btn-view-2 { cursor: pointer; width: 50%; }
 
-.btn-view-2 {
-  cursor: pointer;
-  width: 50%;
+/* ─── Dashboard Hero ─────────────────────────────────────────────────────── */
+.dashboard-hero {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #2563eb 100%);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.25);
 }
+
+/* ─── Stat cards hover ───────────────────────────────────────────────────── */
+.dashboard-stat-card:hover {
+  transform: translateY(-2px);
+}
+
+/* ─── Profile modal animation ───────────────────────────────────────────── */
+.profile-modal-enter {
+  animation: slideInFromBottom 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes slideInFromBottom {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ─── Scrollbar hide ─────────────────────────────────────────────────────── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─── Safe area bottom ───────────────────────────────────────────────────── */
+.safe-area-bottom { padding-bottom: env(safe-area-inset-bottom, 8px); }
