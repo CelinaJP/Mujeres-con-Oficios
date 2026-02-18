@@ -122,7 +122,26 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
-  align-items: start;
+  align-items: stretch;
+}
+
+/* Igualar altura de las 3 cards principales en desktop */
+.survey-card--place,
+.survey-card--media,
+.survey-card--notes {
+  display: flex;
+  flex-direction: column;
+  min-height: 370px;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .survey-card--place,
+  .survey-card--media,
+  .survey-card--notes {
+    min-height: unset;
+    height: auto;
+  }
 }
 @media (max-width: 900px) {
   .survey-grid { grid-template-columns: 1fr; }
