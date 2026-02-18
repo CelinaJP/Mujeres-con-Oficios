@@ -71,9 +71,9 @@ const SurveyView: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h2 className="text-2xl font-bold text-slate-800">Ficha Técnica</h2>
-        <p className="text-slate-500">Completá los datos del relevamiento en obra.</p>
+      <header className="">
+        <h2 className="flex items-center justify-center mb-0 text-3xl font-bold text-slate-800">Ficha Técnica</h2>
+        <p className="flex items-center justify-center mb-2 text-slate-500">Completá los datos del relevamiento en obra.</p>
       </header>
 
       {isSuccess && (
@@ -83,7 +83,9 @@ const SurveyView: React.FC = () => {
         </div>
       )}
 
-      {/* SECCIÓN: Datos del Lugar */}
+      <div className="layout-survey">
+        <div className="col-span-1">
+          {/* SECCIÓN: Datos del Lugar */}
       <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
         <label className="title-color block text-sm font-bold text-slate-700 mb-1 flex items-center gap-2">
           <MapPin size={18} className="text-red-600" />
@@ -149,8 +151,9 @@ const SurveyView: React.FC = () => {
           />
         </div>
       </section>
-
-      {/* Media Section */}
+        </div>
+        <div className="col-span-1">
+          {/* Media Section */}
       <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
         <label className="title-color block text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
           <Camera size={18} className="text-red-600" />
@@ -186,8 +189,9 @@ const SurveyView: React.FC = () => {
           />
         </div>
       </section>
-
-      {/* Notes Section */}
+        </div>
+        <div className="col-span-1">
+          {/* Notes Section */}
       <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
         <label className="title-color block text-sm font-bold text-slate-700 mb-3 flex justify-between items-center">
           <div className="flex items-center gap-2">
@@ -205,6 +209,8 @@ const SurveyView: React.FC = () => {
           className="w-full h-32 p-4 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-violet-500 placeholder:text-slate-400 text-slate-700 resize-none"
         />
       </section>
+        </div>
+      </div>
 
       {/* Materials Section */}
       <section className="section-color bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
@@ -225,7 +231,7 @@ const SurveyView: React.FC = () => {
                 setMaterialInput('');
               }
             }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-red-600 text-white p-2 rounded-lg"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-red-plus text-white p-2 rounded-lg"
           >
             <Plus size={18} />
           </button>
@@ -245,17 +251,17 @@ const SurveyView: React.FC = () => {
       </section>
 
       {/* Actions */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="max-w-6xl grid grid-cols-2 gap-0 align-items-center justify-items-center align-self-center mx-auto">
         <button
           onClick={() => setShowMatchModal(true)}
-          className="flex items-center justify-center gap-2 p-4 bg-white border-2 border-red-600 text-red-600 rounded-xl font-bold active:bg-violet-50 transition-colors shadow-sm"
+          className="btn-view-1 flex items-center justify-center gap-2 p-4 bg-white border-2 border-red-600 text-red-600 rounded-xl font-bold active:bg-violet-50 transition-colors shadow-sm"
         >
           <UserPlus size={20} />
           Match Profesional
         </button>
         <button
           onClick={handleSubmit}
-          className="p-4 bg-red-600 text-white rounded-xl font-bold shadow-lg shadow-violet-200 active:bg-red-700 transition-colors"
+          className="btn-view-2 bg-red-plus p-4 bg-red-600 text-white rounded-xl font-bold shadow-lg shadow-violet-200 active:bg-red-700 transition-colors"
         >
           Guardar Ficha
         </button>

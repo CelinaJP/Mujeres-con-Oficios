@@ -1,15 +1,47 @@
-.main-color {
+.layout-color {
     background-color: rgb(254, 248, 240);
 }
 
 .section-color {
-    background-color: rgb(69, 141, 249);
+    background-color: rgb(54, 113, 201);
+}
+
+.bg.blue-plus {
+    background-color: rgb(54, 113, 201);
 }
 
 .title-color {
     color: rgb(255, 255, 255);
 }
 
-.header-color{
-    background-color: rgb(182, 52, 52);
+.bg-red-plus{
+    background-color: rgb(187, 37, 37);
+}
+
+.layout-survey {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.layout-survey > div {
+  display: flex;
+}
+
+.layout-survey > div > section {
+  flex: 1;
+}
+
+.btn-view-1 {
+  cursor: pointer;
+  width: 50%;
+  border-color: rgb(187, 37, 37);
+  color: rgb(187, 37, 37);
+}
+
+.btn-view-2 {
+  cursor: pointer;
+  width: 50%;
 }
