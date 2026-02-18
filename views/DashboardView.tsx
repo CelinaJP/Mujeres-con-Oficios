@@ -42,7 +42,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
       action: () => onNavigate(TabType.DIRECTORY),
     },
     {
-      label: 'Solicitudes pendientes',
+      label: 'Fichas técnicas sin asignar',
       value: stats.pendingRequests,
       icon: <AlertTriangle size={20} />,
       color: 'text-amber-600',
@@ -78,7 +78,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
           <div>
             <p className="text-white/70 text-sm font-medium uppercase tracking-widest mb-1">Panel de Gestión</p>
             <h2 className="text-white text-2xl font-extrabold leading-tight">¡Buen día, gestora! 👋</h2>
-            <p className="text-white/80 text-sm mt-1">Tenés <strong className="text-white">{stats.pendingRequests} solicitudes</strong> sin asignar.</p>
+            <p className="text-white/80 text-sm mt-1">Tenés <strong className="text-white">{stats.pendingRequests} fichas técnicas</strong> sin asignar profesional.</p>
           </div>
           <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3">
             <Zap size={28} className="text-white" />
@@ -89,7 +89,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
           className="mt-4 flex items-center gap-2 bg-white text-violet-700 px-4 py-2.5 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-95"
         >
           <ClipboardList size={16} />
-          Ver solicitudes
+          Ver fichas técnicas
           <ArrowRight size={14} />
         </button>
       </div>
@@ -157,7 +157,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
       {/* Recent Requests */}
       <section>
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Solicitudes recientes</h3>
+          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Fichas técnicas recientes</h3>
           <button
             onClick={() => onNavigate(TabType.MATCHING)}
             className="text-xs text-violet-600 font-bold flex items-center gap-1 hover:underline"
