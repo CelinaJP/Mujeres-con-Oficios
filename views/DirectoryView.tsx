@@ -1,35 +1,201 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import {
   Search, SlidersHorizontal, MapPin, Star, Award,
-  ChevronRight, Users, X, CheckCircle2
+  ChevronRight, Users, X, CheckCircle2, Phone,
+  MessageCircle, Briefcase, ChevronDown, ChevronUp,
+  Image as ImageIcon, Zap
 } from 'lucide-react';
 import { mockProfessionals } from '../mockData';
 import { AvailabilityStatus, Professional } from '../types';
 import ProfessionalProfileModal from '../components/ProfessionalProfileModal';
 
-const ZONES = ['Todas', 'CABA', 'Norte', 'Sur', 'Oeste'];
+/* ── Constantes ──────────────────────────────────────────────────────────── */
+const ZONES       = ['Todas', 'CABA', 'Norte', 'Sur', 'Oeste'];
 const SPECIALTIES = ['Todas', 'Electricidad', 'Domótica', 'Certificaciones', 'Plomería', 'Pintura'];
 const AVAILABILITY_OPTS: { value: AvailabilityStatus | 'all'; label: string }[] = [
   { value: 'all',         label: 'Cualquier estado' },
-  { value: 'available',   label: 'Disponibles' },
-  { value: 'busy',        label: 'Ocupadas' },
-  { value: 'unavailable', label: 'No disponibles' },
+  { value: 'available',   label: 'Disponibles'      },
+  { value: 'busy',        label: 'Ocupadas'         },
+  { value: 'unavailable', label: 'No disponibles'   },
 ];
 
-const availabilityChip: Record<AvailabilityStatus, { label: string; color: string; dot: string }> = {
-  available:   { label: 'Disponible',    color: 'text-emerald-600', dot: 'bg-emerald-500' },
-  busy:        { label: 'Ocupada',       color: 'text-amber-600',   dot: 'bg-amber-400' },
-  unavailable: { label: 'No disponible', color: 'text-slate-400',   dot: 'bg-slate-300' },
+const AVAIL_CFG: Record<AvailabilityStatus, { label: string; cls: string; dot: string; badge: string }> = {
+  available:   { label: 'Disponible',    cls: 'dir-badge--available',   dot: 'bg-emerald-500', badge: 'text-emerald-700 bg-emerald-50 border-emerald-200'  },
+  busy:        { label: 'Ocupada',       cls: 'dir-badge--busy',        dot: 'bg-amber-400',   badge: 'text-amber-700  bg-amber-50  border-amber-200'      },
+  unavailable: { label: 'No disponible', cls: 'dir-badge--unavailable', dot: 'bg-slate-300',   badge: 'text-slate-500  bg-slate-50  border-slate-200'      },
 };
 
+/* ── Utilidades ──────────────────────────────────────────────────────────── */
+const openWhatsApp = (phone: string, name: string) => {
+  const msg = encodeURIComponent(`Hola ${name}, te contacto desde Mujeres con Oficios.`);
+  window.open(`https://wa.me/${phone}?text=${msg}`, '_blank', 'noopener');
+};
+
+const renderStars = (rating: number) =>
+  [1, 2, 3, 4, 5].map(n => (
+    <Star
+      key={n}
+      size={11}
+      className={n <= Math.round(rating)
+        ? 'text-amber-400 fill-amber-400'
+        : 'text-slate-200 fill-slate-200'}
+    />
+  ));
+
+/* ── Sub-componente: mini galería de portfolio ───────────────────────────── */
+const PortfolioStrip: React.FC<{ images: string[]; specialty: string; onExpand: () => void }> = ({
+  images, specialty, onExpand
+}) => {
+  const visible = images.slice(0, 2);
+  const extra   = images.length - 2;
+  return (
+    <div className="dir-portfolio">
+      {visible.map((src, i) => (
+        <div key={i} className="dir-portfolio__thumb">
+          <img
+            src={src}
+            alt={`Trabajo de ${specialty} ${i + 1}`}
+            className="dir-portfolio__img"
+            loading="lazy"
+          />
+        </div>
+      ))}
+      {extra > 0 && (
+        <button
+          className="dir-portfolio__more"
+          onClick={e => { e.stopPropagation(); onExpand(); }}
+          aria-label={`Ver ${extra} foto${extra !== 1 ? 's' : ''} más`}
+          title={`Ver ${extra} foto${extra !== 1 ? 's' : ''} más`}
+        >
+          <ImageIcon size={16} />
+          <span>+{extra}</span>
+        </button>
+      )}
+    </div>
+  );
+};
+
+/* ── Sub-componente: card de profesional ─────────────────────────────────── */
+const ProfCard: React.FC<{
+  pro: Professional;
+  onOpen: (p: Professional) => void;
+}> = ({ pro, onOpen }) => {
+  const avail      = pro.availability ?? 'available';
+  const cfg        = AVAIL_CFG[avail];
+  const skillsShow = (pro.skills ?? []).slice(0, 3);
+  const skillsMore = (pro.skills ?? []).length - 3;
+
+  return (
+    <article className="dir-card" aria-label={`Perfil de ${pro.name}`}>
+      {/* ── Encabezado ── */}
+      <div className="dir-card__header">
+        <div className="dir-card__avatar-wrap">
+          <img
+            src={pro.avatar}
+            alt={`Avatar de ${pro.name}`}
+            className="dir-card__avatar"
+            loading="lazy"
+          />
+          <span
+            className={`dir-card__dot ${cfg.dot}`}
+            title={cfg.label}
+            aria-label={`Estado: ${cfg.label}`}
+          />
+        </div>
+
+        <div className="dir-card__meta">
+          <div className="dir-card__name-row">
+            <h3 className="dir-card__name">{pro.name}</h3>
+            <span className={`dir-badge ${cfg.cls}`}>{cfg.label}</span>
+          </div>
+
+          <p className="dir-card__specialty">
+            <Briefcase size={12} />
+            {pro.specialty}
+          </p>
+
+          <div className="dir-card__stats">
+            <span className="dir-card__zone" title={`Zona: ${pro.zone}`}>
+              <MapPin size={11} />
+              {pro.zone}
+            </span>
+            <span className="dir-card__sep" aria-hidden>·</span>
+            <span className="dir-card__rating" aria-label={`Rating: ${pro.rating} sobre 5`}>
+              <span className="dir-card__stars">{renderStars(pro.rating ?? 0)}</span>
+              <strong>{pro.rating}</strong>
+              <span className="dir-card__jobs">({pro.totalJobs} trab.)</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Skills ── */}
+      {skillsShow.length > 0 && (
+        <div className="dir-card__skills" role="list" aria-label="Habilidades">
+          {skillsShow.map(skill => (
+            <span key={skill} className="dir-skill" role="listitem">{skill}</span>
+          ))}
+          {skillsMore > 0 && (
+            <span className="dir-skill dir-skill--more">+{skillsMore}</span>
+          )}
+        </div>
+      )}
+
+      {/* ── Certificaciones ── */}
+      {pro.coursesCompleted.length > 0 && (
+        <div className="dir-card__certs" role="list" aria-label="Certificaciones">
+          {pro.coursesCompleted.map((c, i) => (
+            <span key={i} className="dir-cert" role="listitem">
+              <Award size={10} />
+              {c}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* ── Portfolio strip ── */}
+      {pro.portfolio.length > 0 && (
+        <PortfolioStrip
+          images={pro.portfolio}
+          specialty={pro.specialty}
+          onExpand={() => onOpen(pro)}
+        />
+      )}
+
+      {/* ── Acciones ── */}
+      <div className="dir-card__actions">
+        <button
+          className="dir-btn dir-btn--wa"
+          onClick={e => { e.stopPropagation(); openWhatsApp(pro.whatsapp, pro.name); }}
+          aria-label={`Contactar a ${pro.name} por WhatsApp`}
+          title="Contactar por WhatsApp"
+        >
+          <MessageCircle size={15} />
+          WhatsApp
+        </button>
+        <button
+          className="dir-btn dir-btn--profile"
+          onClick={() => onOpen(pro)}
+          aria-label={`Ver perfil completo de ${pro.name}`}
+        >
+          Ver perfil
+          <ChevronRight size={15} />
+        </button>
+      </div>
+    </article>
+  );
+};
+
+/* ── Vista principal ─────────────────────────────────────────────────────── */
 const DirectoryView: React.FC = () => {
-  const [searchTerm, setSearchTerm]         = useState('');
-  const [filterZone, setFilterZone]         = useState('Todas');
-  const [filterSpecialty, setFilterSpecialty] = useState('Todas');
-  const [filterAvail, setFilterAvail]       = useState<AvailabilityStatus | 'all'>('all');
-  const [showFilters, setShowFilters]       = useState(false);
-  const [selectedPro, setSelectedPro]       = useState<Professional | null>(null);
+  const [searchTerm,       setSearchTerm]       = useState('');
+  const [filterZone,       setFilterZone]       = useState('Todas');
+  const [filterSpecialty,  setFilterSpecialty]  = useState('Todas');
+  const [filterAvail,      setFilterAvail]      = useState<AvailabilityStatus | 'all'>('all');
+  const [showFilters,      setShowFilters]      = useState(false);
+  const [selectedPro,      setSelectedPro]      = useState<Professional | null>(null);
+  const [sortBy,           setSortBy]           = useState<'rating' | 'jobs' | 'name'>('rating');
 
   const activeFilterCount = [
     filterZone !== 'Todas',
@@ -37,258 +203,200 @@ const DirectoryView: React.FC = () => {
     filterAvail !== 'all',
   ].filter(Boolean).length;
 
-  const filtered = useMemo(() => mockProfessionals.filter(pro => {
+  const filtered = useMemo(() => {
     const q = searchTerm.toLowerCase();
-    const matchSearch =
-      pro.name.toLowerCase().includes(q) ||
-      pro.specialty.toLowerCase().includes(q) ||
-      (pro.skills ?? []).some(s => s.toLowerCase().includes(q));
-    const matchZone    = filterZone === 'Todas' || pro.zone === filterZone;
-    const matchSpec    = filterSpecialty === 'Todas' || pro.specialty.toLowerCase().includes(filterSpecialty.toLowerCase());
-    const matchAvail   = filterAvail === 'all' || pro.availability === filterAvail;
-    return matchSearch && matchZone && matchSpec && matchAvail;
-  }), [searchTerm, filterZone, filterSpecialty, filterAvail]);
+    return mockProfessionals
+      .filter(pro => {
+        const matchSearch =
+          pro.name.toLowerCase().includes(q) ||
+          pro.specialty.toLowerCase().includes(q) ||
+          (pro.skills ?? []).some(s => s.toLowerCase().includes(q));
+        const matchZone  = filterZone === 'Todas' || pro.zone === filterZone;
+        const matchSpec  = filterSpecialty === 'Todas' || pro.specialty.toLowerCase().includes(filterSpecialty.toLowerCase());
+        const matchAvail = filterAvail === 'all' || pro.availability === filterAvail;
+        return matchSearch && matchZone && matchSpec && matchAvail;
+      })
+      .sort((a, b) => {
+        if (sortBy === 'rating') return (b.rating ?? 0) - (a.rating ?? 0);
+        if (sortBy === 'jobs')   return (b.totalJobs ?? 0) - (a.totalJobs ?? 0);
+        return a.name.localeCompare(b.name);
+      });
+  }, [searchTerm, filterZone, filterSpecialty, filterAvail, sortBy]);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setFilterZone('Todas');
     setFilterSpecialty('Todas');
     setFilterAvail('all');
-  };
+  }, []);
 
   return (
-    <div className="space-y-5 pb-24">
-      {/* Header */}
-      <header>
-        <h2 className="text-2xl font-extrabold text-slate-800">Directorio</h2>
-        <p className="text-slate-500 text-sm mt-0.5">
-          {filtered.length} profesional{filtered.length !== 1 ? 'es' : ''} encontrada{filtered.length !== 1 ? 's' : ''}
-        </p>
+    <div className="dir-root">
+
+      {/* ── Header ── */}
+      <header className="dir-header">
+        <div>
+          <h2 className="dir-header__title">Directorio</h2>
+          <p className="dir-header__sub">
+            <Users size={13} />
+            {filtered.length} profesional{filtered.length !== 1 ? 'es' : ''} encontrada{filtered.length !== 1 ? 's' : ''}
+          </p>
+        </div>
+        {/* Selector de ordenamiento */}
+        <div className="dir-sort-wrap">
+          <label htmlFor="dir-sort" className="dir-sort-label">Ordenar por</label>
+          <select
+            id="dir-sort"
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value as typeof sortBy)}
+            className="dir-sort-select"
+          >
+            <option value="rating">Mejor rating</option>
+            <option value="jobs">Más trabajos</option>
+            <option value="name">Nombre A-Z</option>
+          </select>
+        </div>
       </header>
 
-      {/* Search + Filter toggle */}
-      <div className="flex gap-2">
-        <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={17} />
+      {/* ── Barra de búsqueda + toggles ── */}
+      <div className="dir-search-row">
+        <div className="dir-search-wrap">
+          <Search size={16} className="dir-search-icon" aria-hidden />
           <input
-            type="text"
-            placeholder="Búsqueda por nombre, especialidad o skill…"
+            type="search"
+            placeholder="Buscá por nombre, especialidad o habilidad…"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-violet-400 focus:border-transparent text-slate-700 text-sm placeholder:text-slate-400 transition-all"
+            className="dir-search-input"
+            aria-label="Buscar profesionales"
           />
           {searchTerm && (
-            <button onClick={() => setSearchTerm('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500">
-              <X size={16} />
+            <button
+              onClick={() => setSearchTerm('')}
+              className="dir-search-clear"
+              aria-label="Limpiar búsqueda"
+            >
+              <X size={14} />
             </button>
           )}
         </div>
         <button
           onClick={() => setShowFilters(v => !v)}
-          className={`relative flex items-center gap-2 px-4 py-3 rounded-2xl border font-semibold text-sm transition-all shadow-sm ${
-            showFilters || activeFilterCount > 0
-              ? 'bg-violet-600 text-white border-violet-600 shadow-violet-200'
-              : 'bg-white text-slate-600 border-slate-200'
-          }`}
+          className={`dir-filter-btn ${showFilters || activeFilterCount > 0 ? 'dir-filter-btn--active' : ''}`}
+          aria-expanded={showFilters}
+          aria-controls="dir-filters-panel"
         >
-          <SlidersHorizontal size={17} />
+          <SlidersHorizontal size={16} />
           Filtros
           {activeFilterCount > 0 && (
-            <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-rose-500 text-white text-[10px] font-extrabold rounded-full flex items-center justify-center border-2 border-white">
+            <span className="dir-filter-badge" aria-label={`${activeFilterCount} filtros activos`}>
               {activeFilterCount}
             </span>
           )}
+          {showFilters ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
         </button>
       </div>
 
-      {/* Expanded Filters Panel */}
+      {/* ── Panel de filtros expandible ── */}
       {showFilters && (
-        <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 space-y-4">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-extrabold text-slate-700">Filtros avanzados</p>
+        <div id="dir-filters-panel" className="dir-filters-panel" role="region" aria-label="Filtros avanzados">
+          <div className="dir-filters-panel__head">
+            <p className="dir-filters-panel__title">Filtros avanzados</p>
             {activeFilterCount > 0 && (
-              <button onClick={clearFilters} className="text-xs text-rose-500 font-bold hover:underline flex items-center gap-1">
-                <X size={12} /> Limpiar todo
+              <button onClick={clearFilters} className="dir-filters-panel__clear">
+                <X size={11} /> Limpiar todo
               </button>
             )}
           </div>
 
-          {/* Zone chips */}
-          <div>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Zona</p>
-            <div className="flex gap-2 flex-wrap">
+          <fieldset className="dir-filter-group">
+            <legend className="dir-filter-group__legend">Zona</legend>
+            <div className="dir-filter-group__chips">
               {ZONES.map(z => (
                 <button
                   key={z}
                   onClick={() => setFilterZone(z)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
-                    filterZone === z
-                      ? 'bg-violet-600 text-white border-violet-600 shadow-sm shadow-violet-200'
-                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:border-violet-300'
-                  }`}
+                  className={`dir-chip-filter ${filterZone === z ? 'dir-chip-filter--active dir-chip-filter--zone' : ''}`}
+                  aria-pressed={filterZone === z}
                 >
                   {z}
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
 
-          {/* Specialty chips */}
-          <div>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Especialidad</p>
-            <div className="flex gap-2 flex-wrap">
+          <fieldset className="dir-filter-group">
+            <legend className="dir-filter-group__legend">Especialidad</legend>
+            <div className="dir-filter-group__chips">
               {SPECIALTIES.map(s => (
                 <button
                   key={s}
                   onClick={() => setFilterSpecialty(s)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
-                    filterSpecialty === s
-                      ? 'bg-blue-600 text-white border-blue-600 shadow-sm shadow-blue-200'
-                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:border-blue-300'
-                  }`}
+                  className={`dir-chip-filter ${filterSpecialty === s ? 'dir-chip-filter--active dir-chip-filter--spec' : ''}`}
+                  aria-pressed={filterSpecialty === s}
                 >
                   {s}
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
 
-          {/* Availability select */}
-          <div>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Disponibilidad</p>
-            <div className="flex gap-2 flex-wrap">
+          <fieldset className="dir-filter-group">
+            <legend className="dir-filter-group__legend">Disponibilidad</legend>
+            <div className="dir-filter-group__chips">
               {AVAILABILITY_OPTS.map(opt => (
                 <button
                   key={opt.value}
                   onClick={() => setFilterAvail(opt.value)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
-                    filterAvail === opt.value
-                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm shadow-emerald-200'
-                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:border-emerald-300'
-                  }`}
+                  className={`dir-chip-filter ${filterAvail === opt.value ? 'dir-chip-filter--active dir-chip-filter--avail' : ''}`}
+                  aria-pressed={filterAvail === opt.value}
                 >
                   {opt.label}
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
         </div>
       )}
 
-      {/* Quick zone chips (always visible) */}
+      {/* ── Zone pills rápidas (cuando el panel está cerrado) ── */}
       {!showFilters && (
-        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+        <nav className="dir-zone-strip" aria-label="Filtrar por zona">
           {ZONES.map(zone => (
             <button
               key={zone}
               onClick={() => setFilterZone(zone)}
-              className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
-                filterZone === zone
-                  ? 'bg-violet-600 text-white border-violet-600 shadow-md shadow-violet-200'
-                  : 'bg-white border-slate-200 text-slate-500 hover:border-violet-300'
-              }`}
+              className={`dir-zone-pill ${filterZone === zone ? 'dir-zone-pill--active' : ''}`}
+              aria-pressed={filterZone === zone}
             >
               {zone}
             </button>
           ))}
-        </div>
+        </nav>
       )}
 
-      {/* Results */}
+      {/* ── Resultados ── */}
       {filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="bg-slate-100 rounded-3xl p-6 mb-4">
-            <Users size={36} className="text-slate-300 mx-auto" />
+        <div className="dir-empty" role="status">
+          <div className="dir-empty__icon">
+            <Users size={32} className="text-slate-300" />
           </div>
-          <p className="font-bold text-slate-500">Sin resultados</p>
-          <p className="text-slate-400 text-sm mt-1">Probá ajustando los filtros de búsqueda.</p>
-          <button onClick={clearFilters} className="mt-4 text-sm text-violet-600 font-bold hover:underline">Limpiar filtros</button>
+          <p className="dir-empty__title">Sin resultados</p>
+          <p className="dir-empty__sub">Probá ajustando los filtros o la búsqueda.</p>
+          <button onClick={clearFilters} className="dir-empty__cta">
+            <Zap size={14} /> Limpiar filtros
+          </button>
         </div>
       ) : (
-        <div className="space-y-3">
-          {filtered.map(pro => {
-            const availCfg = availabilityChip[pro.availability ?? 'available'];
-            return (
-              <button
-                key={pro.id}
-                onClick={() => setSelectedPro(pro)}
-                className="w-full bg-white rounded-3xl p-5 shadow-sm border border-slate-200 hover:border-violet-300 hover:shadow-md transition-all text-left active:scale-[0.99]"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex gap-3.5">
-                    <div className="relative shrink-0">
-                      <img src={pro.avatar} alt={pro.name} className="w-14 h-14 rounded-2xl object-cover" />
-                      <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${availCfg.dot}`} />
-                    </div>
-                    <div>
-                      <h3 className="font-extrabold text-slate-800 text-base leading-tight">{pro.name}</h3>
-                      <p className="text-violet-600 text-xs font-bold mt-0.5">{pro.specialty}</p>
-                      <div className="flex items-center gap-2 mt-1 flex-wrap">
-                        <span className="flex items-center gap-1 text-slate-400 text-xs">
-                          <MapPin size={11} /> {pro.zone}
-                        </span>
-                        <span className="text-slate-200">·</span>
-                        <span className="flex items-center gap-1 text-xs">
-                          <Star size={11} className="text-amber-400 fill-amber-400" />
-                          <strong className="text-amber-600">{pro.rating}</strong>
-                          <span className="text-slate-400">({pro.totalJobs} trab.)</span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <ChevronRight size={20} className="text-slate-300" />
-                    <span className={`text-[10px] font-bold ${availCfg.color}`}>{availCfg.label}</span>
-                  </div>
-                </div>
-
-                {/* Skills preview */}
-                {pro.skills && (
-                  <div className="flex flex-wrap gap-1.5 mb-3">
-                    {pro.skills.slice(0, 4).map(skill => (
-                      <span key={skill} className="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-lg text-[10px] font-bold border border-slate-200">
-                        {skill}
-                      </span>
-                    ))}
-                    {pro.skills.length > 4 && (
-                      <span className="bg-violet-50 text-violet-600 px-2.5 py-1 rounded-lg text-[10px] font-bold border border-violet-200">
-                        +{pro.skills.length - 4}
-                      </span>
-                    )}
-                  </div>
-                )}
-
-                {/* Courses */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {pro.coursesCompleted.map((course, idx) => (
-                    <span key={idx} className="flex items-center gap-1 bg-emerald-50 text-emerald-700 px-2 py-1 rounded-lg text-[10px] font-bold border border-emerald-200">
-                      <Award size={9} /> {course}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Mini portfolio */}
-                <div className="grid grid-cols-3 gap-1.5">
-                  {pro.portfolio.slice(0, 3).map((img, idx) => (
-                    <div key={idx} className="aspect-video rounded-xl overflow-hidden bg-slate-100">
-                      <img src={img} alt="trabajo" className="w-full h-full object-cover" />
-                    </div>
-                  ))}
-                </div>
-
-                {/* Certifications badge */}
-                <div className="flex items-center gap-2 mt-3 pt-3 border-t border-slate-100">
-                  <CheckCircle2 size={13} className="text-emerald-500" />
-                  <span className="text-xs text-slate-500">
-                    <strong className="text-slate-700">{pro.coursesCompleted.length}</strong> certificacion{pro.coursesCompleted.length !== 1 ? 'es' : ''} completada{pro.coursesCompleted.length !== 1 ? 's' : ''}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
+        <div className="dir-grid" role="list" aria-label="Lista de profesionales">
+          {filtered.map(pro => (
+            <div key={pro.id} role="listitem">
+              <ProfCard pro={pro} onOpen={setSelectedPro} />
+            </div>
+          ))}
         </div>
       )}
 
-      {/* Profile Modal */}
+      {/* ── Modal de perfil ── */}
       {selectedPro && (
         <ProfessionalProfileModal
           professional={selectedPro}

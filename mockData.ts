@@ -7,12 +7,16 @@ export const mockProfessionals: Professional[] = [
     name: 'Marta García',
     specialty: 'Instalaciones Eléctricas / Trifásica',
     zone: 'CABA',
-    avatar: 'https://picsum.photos/seed/marta/200',
+    // Mujer electricista, avatar profesional
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&q=80',
     coursesCompleted: ['Normativa AEA', 'Energías Renovables'],
     portfolio: [
-      'https://picsum.photos/seed/p1/400',
-      'https://picsum.photos/seed/p2/400',
-      'https://picsum.photos/seed/p3/400'
+      // tablero eléctrico
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&q=80',
+      // instalación de luminarias
+      'https://images.unsplash.com/photo-1565814636199-ae8133055c1c?w=600&h=400&fit=crop&q=80',
+      // cables y cableado profesional
+      'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=400&fit=crop&q=80',
     ],
     whatsapp: '5491100000001',
     bio: 'Electricista matriculada con 8 años de experiencia en instalaciones residenciales y comerciales. Especialista en sistemas trifásicos y normativa AEA.',
@@ -31,12 +35,16 @@ export const mockProfessionals: Professional[] = [
     name: 'Lucía Domínguez',
     specialty: 'Domótica y Automatización',
     zone: 'Norte',
-    avatar: 'https://picsum.photos/seed/lucia/200',
+    // Mujer técnica en tecnología
+    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&q=80',
     coursesCompleted: ['Smart Home v2', 'Seguridad Electrónica'],
     portfolio: [
-      'https://picsum.photos/seed/p4/400',
-      'https://picsum.photos/seed/p5/400',
-      'https://picsum.photos/seed/p6/400'
+      // panel de control smart home
+      'https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=400&fit=crop&q=80',
+      // cámara de seguridad CCTV
+      'https://images.unsplash.com/photo-1580595333398-5f38ee80a898?w=600&h=400&fit=crop&q=80',
+      // dispositivos IoT / hub de automatización
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop&q=80',
     ],
     whatsapp: '5491100000002',
     bio: 'Técnica especializada en domótica residencial e industrial. Integro sistemas KNX, Z-Wave y asistentes de voz. Certificada por LARES Argentina.',
@@ -54,12 +62,16 @@ export const mockProfessionals: Professional[] = [
     name: 'Elena Rodríguez',
     specialty: 'Certificaciones e Inspección',
     zone: 'Sur',
-    avatar: 'https://picsum.photos/seed/elena/200',
+    // Mujer profesional en inspección
+    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&q=80',
     coursesCompleted: ['Protocolo puesta a tierra', 'Habilitaciones Municipales'],
     portfolio: [
-      'https://picsum.photos/seed/p7/400',
-      'https://picsum.photos/seed/p8/400',
-      'https://picsum.photos/seed/p9/400'
+      // inspección técnica / documentación
+      'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop&q=80',
+      // medición y puesta a tierra
+      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop&q=80',
+      // auditoría eléctrica en obra
+      'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&h=400&fit=crop&q=80',
     ],
     whatsapp: '5491100000003',
     bio: 'Inspectora técnica y certificadora con amplia experiencia en habilitaciones municipales y auditorías eléctricas para locales comerciales.',
@@ -77,12 +89,16 @@ export const mockProfessionals: Professional[] = [
     name: 'Valeria Méndez',
     specialty: 'Plomería y Gas',
     zone: 'Oeste',
-    avatar: 'https://picsum.photos/seed/valeria/200',
+    // Mujer plomera / técnica
+    avatar: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&q=80',
     coursesCompleted: ['Gasista matriculada', 'Instalaciones Sanitarias'],
     portfolio: [
-      'https://picsum.photos/seed/p10/400',
-      'https://picsum.photos/seed/p11/400',
-      'https://picsum.photos/seed/p12/400'
+      // instalación de cañerías / sanitarios
+      'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=400&fit=crop&q=80',
+      // válvulas y conexiones de gas
+      'https://images.unsplash.com/photo-1504417697388-aa38e15e2b24?w=600&h=400&fit=crop&q=80',
+      // baño moderno terminado
+      'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&h=400&fit=crop&q=80',
     ],
     whatsapp: '5491100000004',
     bio: 'Gasista matriculada y plomera con más de 10 años de trayectoria. Especialista en instalaciones sanitarias y reparaciones de urgencia.',
@@ -100,12 +116,16 @@ export const mockProfessionals: Professional[] = [
     name: 'Sofía Castillo',
     specialty: 'Pintura y Revestimientos',
     zone: 'CABA',
-    avatar: 'https://picsum.photos/seed/sofia/200',
+    // Mujer pintora / decoradora
+    avatar: 'https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?w=200&h=200&fit=crop&q=80',
     coursesCompleted: ['Técnicas Decorativas', 'Microcemento'],
     portfolio: [
-      'https://picsum.photos/seed/p13/400',
-      'https://picsum.photos/seed/p14/400',
-      'https://picsum.photos/seed/p15/400'
+      // pared con microcemento / textura decorativa
+      'https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=600&h=400&fit=crop&q=80',
+      // pintura de interiores con rodillo
+      'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600&h=400&fit=crop&q=80',
+      // revestimiento decorativo terminado
+      'https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=600&h=400&fit=crop&q=80',
     ],
     whatsapp: '5491100000005',
     bio: 'Pintora profesional y decoradora de interiores. Especializada en microcemento, pintura texturada y revestimientos decorativos de alta gama.',
