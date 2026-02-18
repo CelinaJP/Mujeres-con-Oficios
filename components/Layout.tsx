@@ -7,7 +7,7 @@ import {
 import NotificationCenter from './NotificationCenter';
 import OnboardingModal from './OnboardingModal';
 import Tooltip from './ui/Tooltip';
-import { mockNotifications } from '../mockData';
+import { mockNotifications, mockServiceRequests } from '../mockData';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 interface LayoutProps {
@@ -146,7 +146,8 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange }) => 
   );
 
   const unreadCount  = notifications.filter(n => !n.read).length;
-  const newReqUnread = notifications.filter(n => !n.read && n.type === 'new_request').length;
+  // Cantidad real de solicitudes pendientes:
+  const pendingRequests = mockServiceRequests.filter(r => r.status === 'pending').length;
 
   const handleMarkRead    = (id: string) =>
     setNotifications(prev => prev.map(n => (n.id === id ? { ...n, read: true } : n)));
@@ -252,7 +253,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange }) => 
             onClick={() => onTabChange(TabType.MATCHING)}
             icon={<Zap size={21} />}
             label="Matching"
-            badge={newReqUnread}
+            badge={pendingRequests}
             ariaLabel="Ir a Matching y Asignaciones"
           />
         </Tooltip>
